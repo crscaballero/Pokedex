@@ -60,8 +60,7 @@ export const PokemonCard = ({pokemon}: Props) => {
       >
         <View>
           <Text style={styles.name}>
-            {pokemon.name}
-            {`\n#${pokemon.id}`}
+            {`${pokemon.name}\n#${pokemon.id}`}
           </Text>
         </View>
         <View style={styles.pokeballContainer}>
