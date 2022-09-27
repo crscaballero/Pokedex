@@ -5,15 +5,16 @@ import { useDebouncedValue } from '../hooks/useDebouncedValue';
 
 interface Props {
   style?: StyleProp<ViewStyle>;
+  onDebounce: (value: string) => void;
 }
 
-export const SearchInput = ({style}: Props) => {
+export const SearchInput = ({style, onDebounce}: Props) => {
   const [textValue, setTextValue] = useState<string>('');
 
   const debouncedValue = useDebouncedValue(textValue);
 
   useEffect(() => {
-    console.log('debouncedValue:', debouncedValue);
+    onDebounce(debouncedValue);
   }, [debouncedValue]);
 
   return (

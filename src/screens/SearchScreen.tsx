@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, View, Text, FlatList, Dimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -14,6 +14,17 @@ const screenWidth = Dimensions.get('window').width
 export const SearchScreen = () => {
   const { top } = useSafeAreaInsets();
   const { isFetching, simplePokemonList } = usePokemonSearch();
+  const [term, setTerm] = useState<string>('');
+  const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+  
+  useEffect(() => {
+    if (term) {
+      const filter = simplePokemonList.filter(poke => poke.name.toLowerCase().includes(term.toLowerCase()))
+      setPokemonFiltered(filter);
+    } else {
+      setPokemonFiltered([]);
+    }
+  }, [term])
 
   return isFetching
     ? (
@@ -29,6 +40,7 @@ export const SearchScreen = () => {
         }}
       >
         <SearchInput
+          onDebounce={(value: string) => setTerm(value)}
           style={{
             position: 'absolute',
             zIndex: 999,
@@ -37,7 +49,7 @@ export const SearchScreen = () => {
           }}
         />
         <FlatList
-          data={simplePokemonList}
+          data={pokemonFiltered}
           keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
           showsVerticalScrollIndicator={false}
           numColumns={2}
@@ -53,7 +65,7 @@ export const SearchScreen = () => {
                 marginTop: Platform.OS === 'ios' ? top + 60 : top + 60
               }}
             >
-              Pokedex
+              {term}
             </Text>
           )}
 
