@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { styles } from '../theme/appTheme';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { PokemonCard } from '../components/PokemonCard';
+import { SimplePokemon } from '../interfaces/PokemonInterfaces';
 
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
@@ -19,7 +20,7 @@ export const HomeScreen = () => {
       <View style={{alignItems: 'center'}}>
         <FlatList
           data={simplePokemonList}
-          keyExtractor={(pokemon) => pokemon.id}
+          keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
           showsVerticalScrollIndicator={false}
           numColumns={2}
 
@@ -39,7 +40,7 @@ export const HomeScreen = () => {
             </Text>
           )}
 
-          renderItem={({item}) => <PokemonCard pokemon={item} />}
+          renderItem={({item}: any) => <PokemonCard pokemon={item} />}
           
           // Infinite Scroll
           onEndReached={loadPokemons}
