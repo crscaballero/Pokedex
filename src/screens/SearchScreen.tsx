@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { Platform, Image, View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { DismissKeyboard } from '../components/DismissKeyboard';
 
@@ -46,6 +46,10 @@ export const SearchScreen = () => {
             // top: Platform.OS === 'ios' ? top : top + 10
           }}
         >
+          <Image
+            source={require('../assets/pokeball.png')}
+            style={globalStyles.pokeballBG}
+          />
           <SearchInput
             onDebounce={(value: string) => setTerm(value)}
             style={{
@@ -53,29 +57,44 @@ export const SearchScreen = () => {
               paddingTop: Platform.OS === 'ios' ? top : top + 20
             }}
           />
-          <FlatList
-            data={pokemonFiltered}
-            keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
-            showsVerticalScrollIndicator={false}
-            numColumns={2}
-
-            // Header
-            ListHeaderComponent={(    
-              <Text
-                style={{
-                  ...globalStyles.title,
-                  ...globalStyles.globalMargin,
-                  ...globalStyles.blackNormalText,
-                  ...styles.flatListHeader,
-                  marginTop: Platform.OS === 'ios' ? top + 60 : top + 60
-                }}
-              >
-                {term}
+          {(term.length && !pokemonFiltered.length)
+          ? (
+            <View
+              style={{
+                ...globalStyles.globalMargin,
+                ...styles.noPokemonFound,
+                marginTop: top + 70
+              }}
+            >
+              <Text style={{...globalStyles.blackNormalText, ...styles.noPokemonFoundText}}>
+                No Pokemon were found
               </Text>
-            )}
+            </View>
+          ) : (
+            <FlatList
+              data={pokemonFiltered}
+              keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
+              showsVerticalScrollIndicator={false}
+              numColumns={2}
 
-            renderItem={({item}: any) => <PokemonCard pokemon={item} />}
-          />
+              // Header
+              ListHeaderComponent={(    
+                <Text
+                  style={{
+                    ...globalStyles.title,
+                    ...globalStyles.globalMargin,
+                    ...globalStyles.blackNormalText,
+                    ...styles.flatListHeader,
+                    marginTop: top + 70
+                  }}
+                >
+                  {term || ''}
+                </Text>
+              )}
+
+              renderItem={({item}: any) => <PokemonCard pokemon={item} />}
+            />
+          )}
         </View>
       </DismissKeyboard>
     )
@@ -92,5 +111,11 @@ const styles = StyleSheet.create({
   },
   flatListHeader: {
     paddingBottom: 10,
+  },
+  noPokemonFound: {
+    position: 'absolute',
+  },
+  noPokemonFoundText: {
+    fontSize: 20,
   }
 });
