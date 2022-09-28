@@ -8,6 +8,7 @@ import { RootStackParams } from '../navigator/Navigator';
 import { FadeInImage } from '../components/FadeInImage';
 import { usePokemon } from '../hooks/usePokemon';
 import { PokemonDetails } from '../components/PokemonDetails';
+import { capitalizeFirstLetter } from '../helpers/capitalize';
 
 interface Props extends StackScreenProps<RootStackParams, 'PokemonScreen'> {}
 
@@ -45,7 +46,7 @@ export const PokemonScreen = ({navigation, route}: Props) => {
             top: top + 40,
           }}
         >
-          {`${name}\n#${id}`}
+          {`${capitalizeFirstLetter(name)}\n#${id}`}
         </Text>
         <Image
           source={require('../assets/pokeball-white.png')}

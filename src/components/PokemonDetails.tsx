@@ -1,8 +1,9 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import { PokemonFull } from '../interfaces/PokemonInterfaces';
 import { FadeInImage } from './FadeInImage';
+import { PokemonFull } from '../interfaces/PokemonInterfaces';
+import { capitalizeFirstLetter } from '../helpers/capitalize';
 
 interface Props {
   pokemon: PokemonFull;
@@ -31,7 +32,7 @@ export const PokemonDetails = ({pokemon}: Props) => (
               marginRight: 10
             }}
           >
-            {type.name}
+            {capitalizeFirstLetter(type.name)}
           </Text>
         ))}
       </View>
@@ -58,7 +59,7 @@ export const PokemonDetails = ({pokemon}: Props) => (
               marginRight: 10
             }}
           >
-            {ability.name}
+            {capitalizeFirstLetter(ability.name)}
           </Text>
         ))}
       </View>
@@ -74,7 +75,7 @@ export const PokemonDetails = ({pokemon}: Props) => (
               marginRight: 10
             }}
           >
-            {move.name}
+            {capitalizeFirstLetter(move.name)}
           </Text>
         ))}
       </View>
@@ -92,7 +93,7 @@ export const PokemonDetails = ({pokemon}: Props) => (
                 width: 150,
               }}
             >
-              {stat.stat.name}
+              {capitalizeFirstLetter(stat.stat.name)}
             </Text>
             <Text
               key={stat.base_stat}

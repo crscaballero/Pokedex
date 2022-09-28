@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
 import ImageColors from 'react-native-image-colors';
-
-import { SimplePokemon } from '../interfaces/PokemonInterfaces';
-import { FadeInImage } from './FadeInImage';
-import { useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+
+import { FadeInImage } from './FadeInImage';
+import { SimplePokemon } from '../interfaces/PokemonInterfaces';
 import { RootStackParams } from '../navigator/Navigator';
+import { capitalizeFirstLetter } from '../helpers/capitalize';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -60,7 +60,7 @@ export const PokemonCard = ({pokemon}: Props) => {
       >
         <View>
           <Text style={styles.name}>
-            {`${pokemon.name}\n#${pokemon.id}`}
+            {`${capitalizeFirstLetter(pokemon.name)}\n#${pokemon.id}`}
           </Text>
         </View>
         <View style={styles.pokeballContainer}>
