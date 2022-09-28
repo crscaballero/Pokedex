@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     height: 100,
   },
   lastImageContainer: {
-    marginBottom: 20,
+    marginBottom: 60,
     alignItems: 'center'
   }
 });
