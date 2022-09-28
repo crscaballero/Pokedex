@@ -19,8 +19,13 @@ export const SearchScreen = () => {
   
   useEffect(() => {
     if (term) {
-      const filter = simplePokemonList.filter(poke => poke.name.toLowerCase().includes(term.toLowerCase()))
-      setPokemonFiltered(filter);
+      if (isNaN(Number(term))) { // Search by name
+        const pokemonFilteredByName = simplePokemonList.filter(poke => poke.name.toLowerCase().includes(term.toLowerCase()));
+        setPokemonFiltered(pokemonFilteredByName);
+      } else { // Search by Id
+        const pokemonFilteredByIf = simplePokemonList.find(poke => poke.id === term);
+        setPokemonFiltered(pokemonFilteredByIf ? [pokemonFilteredByIf] : []);
+      }
     } else {
       setPokemonFiltered([]);
     }
