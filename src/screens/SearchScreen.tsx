@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, View, Text, FlatList, Dimensions } from 'react-native';
+import { Platform, View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Loading } from '../components/Loading';
@@ -7,15 +7,15 @@ import { PokemonCard } from '../components/PokemonCard';
 import { SearchInput } from '../components/SearchInput';
 import { usePokemonSearch } from '../hooks/usePokemonSearch';
 import { SimplePokemon } from '../interfaces/PokemonInterfaces';
-import { styles as globalStyles } from '../theme/appTheme';
+import { globalStyles } from '../theme/appTheme';
 
 const screenWidth = Dimensions.get('window').width
 
 export const SearchScreen = () => {
-  const { top } = useSafeAreaInsets();
-  const { isFetching, simplePokemonList } = usePokemonSearch();
   const [term, setTerm] = useState<string>('');
   const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
+  const { top } = useSafeAreaInsets();
+  const { isFetching, simplePokemonList } = usePokemonSearch();
   
   useEffect(() => {
     if (term) {
@@ -38,18 +38,16 @@ export const SearchScreen = () => {
     : (
       <View
         style={{
-          flex: 1,
+          ...globalStyles.globalMargin,
+          ...styles.searchContainer,
           // marginTop: Platform.OS === 'ios' ? top : top + 10,
-          marginHorizontal: 20,
           // top: Platform.OS === 'ios' ? top : top + 10
         }}
       >
         <SearchInput
           onDebounce={(value: string) => setTerm(value)}
           style={{
-            position: 'absolute',
-            zIndex: 999,
-            width: screenWidth - 40,
+            ...styles.searchInput,
             paddingTop: Platform.OS === 'ios' ? top : top + 20
           }}
         />
@@ -65,8 +63,8 @@ export const SearchScreen = () => {
               style={{
                 ...globalStyles.title,
                 ...globalStyles.globalMargin,
-                color: 'black',
-                paddingBottom: 10,
+                ...globalStyles.blackNormalText,
+                ...styles.flatListHeader,
                 marginTop: Platform.OS === 'ios' ? top + 60 : top + 60
               }}
             >
@@ -79,3 +77,17 @@ export const SearchScreen = () => {
       </View>
     )
 };
+
+const styles = StyleSheet.create({
+  searchContainer: {
+    flex: 1,
+  },
+  searchInput: {
+    position: 'absolute',
+    zIndex: 999,
+    width: screenWidth - 40,
+  },
+  flatListHeader: {
+    paddingBottom: 10,
+  }
+});

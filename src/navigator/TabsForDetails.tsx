@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { PokemonScreen } from '../screens/PokemonScreen';
 import { SearchScreen } from '../screens/SearchScreen';
 import { RootStackParams } from './Navigator';
+import { StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,12 +15,16 @@ export const TabsForDetails = () => (
   <Tab2.Navigator
     screenOptions={{
       headerShown: false,
-      cardStyle: {
-        backgroundColor: 'white'
-      }
+      cardStyle: styles.tabArea
     }}
   >
     <Tab2.Screen name="HomeScreen" component={SearchScreen} />
     <Tab2.Screen name="PokemonScreen" component={PokemonScreen} />
   </Tab2.Navigator>
 );
+
+const styles = StyleSheet.create({
+  tabArea: {
+    backgroundColor: 'white'
+  }
+});

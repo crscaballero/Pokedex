@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Image, Text, FlatList, ActivityIndicator } from 'react-native';
+import { View, Image, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { styles } from '../theme/appTheme';
+import { globalStyles } from '../theme/appTheme';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
 import { PokemonCard } from '../components/PokemonCard';
 import { SimplePokemon } from '../interfaces/PokemonInterfaces';
@@ -15,9 +15,9 @@ export const HomeScreen = () => {
     <>
       <Image
         source={require('../assets/pokeball.png')}
-        style={styles.pokeballBG}
+        style={globalStyles.pokeballBG}
       />
-      <View style={{alignItems: 'center'}}>
+      <View style={styles.flatListContainer}>
         <FlatList
           data={simplePokemonList}
           keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
@@ -28,12 +28,11 @@ export const HomeScreen = () => {
           ListHeaderComponent={(    
             <Text
               style={{
-                ...styles.title,
-                ...styles.globalMargin,
+                ...globalStyles.title,
+                ...globalStyles.globalMargin,
+                ...styles.flatListHeader,
                 top: top + 20,
                 marginBottom: top + 20,
-                color: 'black',
-                paddingBottom: 10,
               }}
             >
               Pokedex
@@ -59,3 +58,13 @@ export const HomeScreen = () => {
     </>
   );
 };
+
+const styles = StyleSheet.create({
+  flatListContainer: {
+    alignItems: 'center'
+  },
+  flatListHeader: {
+    color: 'black',
+    paddingBottom: 10,
+  }
+});

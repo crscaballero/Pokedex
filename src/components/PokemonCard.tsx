@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
   touchableContainer: {},
   cardContainer: {
     marginHorizontal: 10,
-    // backgroundColor: 'grey',
     height: 120,
     width: windowWidth * 0.4,
     marginBottom: 25,

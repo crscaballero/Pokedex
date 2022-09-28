@@ -18,7 +18,7 @@ export const SearchInput = ({style, onDebounce}: Props) => {
   }, [debouncedValue]);
 
   return (
-    <View style={{...styles.container, ...style as any}}>
+    <View style={style as any}>
       <View style={styles.textBackground}>
         <TextInput
           placeholder="Search Pokemon"
@@ -39,9 +39,6 @@ export const SearchInput = ({style, onDebounce}: Props) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: 'red'
-  },
   textBackground: {
     backgroundColor: '#F3F1F3',
     borderRadius: 50,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Animated, ImageErrorEventData, ImageStyle, NativeSyntheticEvent, StyleProp, View } from 'react-native';
+import { ActivityIndicator, Animated, ImageErrorEventData, ImageStyle, NativeSyntheticEvent, StyleProp, View, StyleSheet } from 'react-native';
 
 import { useAnimation } from '../hooks/useAnimation';
 
@@ -18,13 +18,12 @@ export const FadeInImage = ({ uri, style = {} } : Props) => {
   }
 
   const onError = (err: NativeSyntheticEvent<ImageErrorEventData>) => {
-    setIsLoading( false );
+    setIsLoading(false);
   }
 
   return (
     <View style={{
-      justifyContent: 'center',
-      alignItems: 'center',
+      ...styles.loadingContainer,
       ...style as any,
     }}>
       {isLoading && (
@@ -46,3 +45,10 @@ export const FadeInImage = ({ uri, style = {} } : Props) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  loadingContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});

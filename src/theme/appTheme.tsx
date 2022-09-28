@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-export const styles = StyleSheet.create({
+export const globalStyles = StyleSheet.create({
 	globalMargin: {
 		marginHorizontal: 20,
 	},
@@ -16,4 +16,10 @@ export const styles = StyleSheet.create({
 		fontSize: 35,
 		fontWeight: 'bold',
 	},
+  blackNormalText: {
+    color: 'black'
+  },
+  greyNormalText: {
+    color: 'grey'
+  },
 });

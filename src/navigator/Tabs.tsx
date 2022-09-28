@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 
@@ -17,10 +17,7 @@ export const Tabs = () => (
         marginBottom: (Platform.OS === 'ios') ? 0 : 10
       },
       tabBarStyle: {
-        position: 'absolute',
-        backgroundColor: 'rgba(255,255,255,0.82)',
-        borderWidth: 0,
-        elevation: 0,
+        ...styles.tabArea,
         height: (Platform.OS === 'ios') ? 80 : 60,
       }
     }}
@@ -43,3 +40,12 @@ export const Tabs = () => (
     />
   </Tab.Navigator>
 );
+
+const styles = StyleSheet.create({
+  tabArea: {
+    position: 'absolute',
+    backgroundColor: 'rgba(255,255,255,0.82)',
+    borderWidth: 0,
+    elevation: 0,
+  }
+});
