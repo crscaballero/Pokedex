@@ -6,3 +6,5 @@
 
 Troubleshooting
 - If you have troubles with the tabs, check this https://docs.swmansion.com/react-native-reanimated/docs/fundamentals/installation/
+
+To build on Windows SO you are going to need to install `npm install -g win-node-env`
