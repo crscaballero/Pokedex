@@ -1,13 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	  <meta name="theme-color" content="#FFFFFF">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+    <link id="favicon" rel="icon" href="/favicon.png" type="image/x-icon" >
+
+    <meta name="author" content="CrsCaballero">
+    <meta name="owner" content="CrsCaballero">
+    <meta name="robots" content="index, follow, archive">
+    <meta name="googlebot" content="index, follow, archive">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="icon" type="image/x-icon" href="/assets/images/favicon.ico">
     <title>Pokedex</title>
     <style>
-      #app-root {
+      /* These styles make the body full-height */
+      html,
+      body {
+        height: 100%;
+      }
+      /* These styles disable body scrolling if you are using <ScrollView> */
+      body {
+        overflow: hidden;
+      }
+      /* These styles make the root element full-height */
+      #root {
         display: flex;
         flex: 1 1 100%;
         height: 100vh;
@@ -15,6 +36,9 @@
     </style>
   </head>
   <body>
-    <div id="app-root"></div>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
   </body>
 </html>
