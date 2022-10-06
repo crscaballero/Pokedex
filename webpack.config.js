@@ -17,21 +17,16 @@ module.exports = {
   output: {
     path: path.resolve(appDirectory, 'dist'),
     publicPath: '/',
-    filename: '[name].rnw.bundle.js', // 'rnw.bundle.js',
+    filename: '[name].rnw.bundle.js',
     chunkFilename: '[name].rnw.bundle.js',
   },
   resolve: {
     extensions: [
       '.web.js',
       '.js',
-      '.web.ts',
       '.ts',
-      // '.web.jsx',
       '.jsx',
-      // '.web.tsx',
       '.tsx',
-      // '.css',
-      // '.json',
     ],
     alias: {
       'react-native$': 'react-native-web',
@@ -43,7 +38,6 @@ module.exports = {
         test: /\.(ts|tsx|js|jsx)$/,
         include: [ // Add every directory that needs to be compiled by Babel during the build.
           path.resolve(__dirname, 'index.web.js'), // Entry to your application
-          // path.resolve(__dirname, 'src/App.tsx'),
           path.resolve(__dirname, 'src'),
           [ // Add every react-native package that needs compiling
             'react-native-reanimated',
@@ -88,14 +82,12 @@ module.exports = {
         loader: 'url-loader',
         include: path.resolve(__dirname, 'node_modules/react-native-vector-icons')
       },
-      // {
-      //   test: /\.(png|jpg|jpeg|gif)$/,
-      //   type: 'asset',
-      // },
     ],
   },
   devServer: {
+		port: 3000,
     open: true,
+    hot: true
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -107,7 +99,7 @@ module.exports = {
       // See: <https://github.com/necolas/react-native-web/issues/349>
       __DEV__: JSON.stringify(true),
     }),
-    new CopyWebpackPlugin({ // Used to copy assets into dist folter
+    new CopyWebpackPlugin({ // Used to copy assets on public into dist folter
       patterns: [
         {
           from: path.resolve(__dirname, 'public', 'assets'),
