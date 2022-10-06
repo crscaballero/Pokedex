@@ -2,6 +2,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
@@ -16,8 +17,7 @@ module.exports = {
   output: {
     path: path.resolve(appDirectory, 'dist'),
     publicPath: '/',
-    // filename: 'rnw.bundle.js',
-    filename: '[name].rnw.bundle.js',
+    filename: '[name].rnw.bundle.js', // 'rnw.bundle.js',
     chunkFilename: '[name].rnw.bundle.js',
   },
   resolve: {
@@ -26,12 +26,12 @@ module.exports = {
       '.js',
       '.web.ts',
       '.ts',
-      '.web.jsx',
+      // '.web.jsx',
       '.jsx',
-      '.web.tsx',
+      // '.web.tsx',
       '.tsx',
-      '.css',
-      '.json',
+      // '.css',
+      // '.json',
     ],
     alias: {
       'react-native$': 'react-native-web',
@@ -43,7 +43,7 @@ module.exports = {
         test: /\.(ts|tsx|js|jsx)$/,
         include: [ // Add every directory that needs to be compiled by Babel during the build.
           path.resolve(__dirname, 'index.web.js'), // Entry to your application
-          path.resolve(__dirname, 'src/App.tsx'),
+          // path.resolve(__dirname, 'src/App.tsx'),
           path.resolve(__dirname, 'src'),
           [ // Add every react-native package that needs compiling
             'react-native-gesture-handler',
@@ -85,7 +85,7 @@ module.exports = {
       {
         test: /\.ttf$/,
         loader: 'url-loader',
-        include: path.resolve(__dirname, "node_modules/react-native-vector-icons")
+        include: path.resolve(__dirname, 'node_modules/react-native-vector-icons')
       },
       // {
       //   test: /\.(png|jpg|jpeg|gif)$/,
@@ -105,6 +105,30 @@ module.exports = {
     new webpack.DefinePlugin({
       // See: <https://github.com/necolas/react-native-web/issues/349>
       __DEV__: JSON.stringify(true),
+    }),
+    new CopyWebpackPlugin({ // Used to copy assets into dist folter
+      patterns: [
+        {
+          from: path.resolve(__dirname, 'public', 'assets'),
+          to: 'assets'
+        },
+        {
+          from: path.resolve(__dirname, 'public', 'favicon.png'),
+          to: 'favicon.png'
+        },
+        {
+          from: path.resolve(__dirname, 'public', 'manifest.json'),
+          to: 'manifest.json'
+        },
+        {
+          from: path.resolve(__dirname, 'public', 'robots.txt'),
+          to: 'robots.txt'
+        },
+        {
+          from: path.resolve(__dirname, 'public', 'sitemap.xml'),
+          to: 'sitemap.xml'
+        }
+      ]
     }),
     new CleanWebpackPlugin(),
   ],
