@@ -46,6 +46,7 @@ module.exports = {
           // path.resolve(__dirname, 'src/App.tsx'),
           path.resolve(__dirname, 'src'),
           [ // Add every react-native package that needs compiling
+            'react-native-reanimated',
             'react-native-gesture-handler',
           ].map((moduleName) => path.resolve(appDirectory, `node_modules/${moduleName}`)),
         ],
