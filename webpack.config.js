@@ -87,10 +87,10 @@ module.exports = {
         loader: 'url-loader',
         include: path.resolve(__dirname, "node_modules/react-native-vector-icons")
       },
-      {
-        test: /\.(png|jpg|jpeg|gif)$/,
-        type: 'asset',
-      },
+      // {
+      //   test: /\.(png|jpg|jpeg|gif)$/,
+      //   type: 'asset',
+      // },
     ],
   },
   devServer: {
