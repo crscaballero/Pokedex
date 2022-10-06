@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Platform, Image, View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { DismissKeyboard } from '../components/DismissKeyboard';
+// import { DismissKeyboard } from '../components/DismissKeyboard';
+import { ScrollView } from 'react-native-virtualized-view';
 
 import { Loading } from '../components/Loading';
 import { PokemonCard } from '../components/PokemonCard';
@@ -37,7 +38,7 @@ export const SearchScreen = () => {
       <Loading />
     )
     : (
-      <DismissKeyboard>
+      // <DismissKeyboard>
         <View
           style={{
             ...globalStyles.globalMargin,
@@ -57,46 +58,55 @@ export const SearchScreen = () => {
               paddingTop: Platform.OS === 'ios' ? top : top + 20
             }}
           />
-          {(term.length && !pokemonFiltered.length)
-          ? (
-            <View
-              style={{
-                ...globalStyles.globalMargin,
-                ...styles.noPokemonFound,
-                marginTop: top + 70
-              }}
-            >
-              <Text style={{...globalStyles.blackNormalText, ...styles.noPokemonFoundText}}>
-                No Pokemon were found
-              </Text>
-            </View>
-          ) : (
-            <FlatList
-              data={pokemonFiltered}
-              keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
-              showsVerticalScrollIndicator={false}
-              numColumns={2}
-
-              // Header
-              ListHeaderComponent={(    
-                <Text
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={{
+              ...StyleSheet.absoluteFillObject,
+            }}
+          >
+            <View style={styles.pokemonContainer}>
+              {(term.length && !pokemonFiltered.length)
+              ? (
+                <View
                   style={{
-                    ...globalStyles.title,
                     ...globalStyles.globalMargin,
-                    ...globalStyles.blackNormalText,
-                    ...styles.flatListHeader,
+                    ...styles.noPokemonFound,
                     marginTop: top + 70
                   }}
                 >
-                  {term || ''}
-                </Text>
-              )}
+                  <Text style={{...globalStyles.blackNormalText, ...styles.noPokemonFoundText}}>
+                    No Pokemon were found
+                  </Text>
+                </View>
+              ) : (
+                <FlatList
+                  data={pokemonFiltered}
+                  keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
+                  showsVerticalScrollIndicator={false}
+                  numColumns={2}
 
-              renderItem={({item}: any) => <PokemonCard pokemon={item} />}
-            />
-          )}
+                  // Header
+                  ListHeaderComponent={(    
+                    <Text
+                      style={{
+                        ...globalStyles.title,
+                        ...globalStyles.globalMargin,
+                        ...globalStyles.blackNormalText,
+                        ...styles.flatListHeader,
+                        marginTop: top + 70
+                      }}
+                    >
+                      {term || ''}
+                    </Text>
+                  )}
+
+                  renderItem={({item}: any) => <PokemonCard pokemon={item} />}
+                />
+              )}
+            </View>
+          </ScrollView>
         </View>
-      </DismissKeyboard>
+      // </DismissKeyboard>
     )
 };
 
@@ -108,6 +118,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     zIndex: 999,
     width: screenWidth - 40,
+  },
+  pokemonContainer: {
+    alignItems: 'center'
   },
   flatListHeader: {
     paddingBottom: 10,

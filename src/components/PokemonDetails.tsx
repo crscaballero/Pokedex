@@ -116,7 +116,8 @@ export const PokemonDetails = ({pokemon}: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
+    alignItems: 'center'
   },
   listContainer: {
     flexDirection: 'row'
