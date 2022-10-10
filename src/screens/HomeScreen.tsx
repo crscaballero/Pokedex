@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { View, Image, Text, FlatList, ActivityIndicator, useWindowDimensions, StyleSheet } from 'react-native';
+import { View, Image, Text, FlatList, ActivityIndicator, Platform, useWindowDimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-virtualized-view';
+import SplashScreen from 'react-native-splash-screen';
 
 import { globalStyles } from '../theme/appTheme';
 import { usePokemonPaginated } from '../hooks/usePokemonPaginated';
@@ -13,6 +14,10 @@ export const HomeScreen = () => {
   const { simplePokemonList, loadPokemons } = usePokemonPaginated();
   const [columns, setColumns] = useState<number>(2);
   const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if (Platform.OS !== 'web') SplashScreen.hide();
+	}, []);
 
   useEffect(() => {
     if (width > 576 && width <= 768) {
