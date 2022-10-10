@@ -22,25 +22,22 @@ export const PokemonCard = ({pokemon}: Props) => {
   const isMounted = useRef<boolean>(true);
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  useEffect(() => {
-    if (isMounted) {
-      ImageColors.getColors(pokemon.picture, {fallback: 'grey'})
-        .then(colors => {
-          switch (colors.platform) {
-            case 'android':
-              if (colors.dominant) setBgColor(colors.dominant);
-              break;
-            case 'web':
-              if (colors.dominant) setBgColor(colors.dominant);
-              break;
-            case 'ios':
-              if (colors.background) setBgColor(colors.background);
-              break;
-            default:
-              throw new Error('Unexpected platform key');
-          }
-        });
+  const asyncColor = async () => {
+    const colors: any = await ImageColors.getColors(pokemon.picture, {
+      fallback: 'grey',
+    });
+
+    if (isMounted.current) {
+      if (colors.platform === 'android' || colors.platform === 'web') {
+        setBgColor(colors.dominant);
+      } else {
+        setBgColor(colors.background);
+      }
     }
+  };
+
+  useEffect(() => {
+    asyncColor();
     return () => {
       isMounted.current = false;
     }
