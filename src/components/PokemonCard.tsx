@@ -18,29 +18,41 @@ interface Props {
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParams, 'HomeScreen'>
 
 export const PokemonCard = ({pokemon}: Props) => {
-  const [bgColor, setBgColor] = useState<string>('grey');
+  const DEFAULT_BG_COLOR = 'grey';
+  const [bgColor, setBgColor] = useState<string>(DEFAULT_BG_COLOR);
   const isMounted = useRef<boolean>(true);
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  const asyncColor = async () => {
-    const colors: any = await ImageColors.getColors(pokemon.picture, {
-      fallback: 'grey',
-    });
+  // const asyncColor = async () => {
+  //   const colors: any = await ImageColors.getColors(pokemon.picture, {
+  //     fallback: DEFAULT_BG_COLOR,
+  //   });
 
-    if (isMounted.current) {
-      if (colors.platform === 'android' || colors.platform === 'web') {
-        setBgColor(colors.dominant);
-      } else {
-        setBgColor(colors.background);
-      }
-    }
-  };
+  //   if (isMounted.current) {
+  //     if (colors.platform === 'android' || colors.platform === 'web') {
+  //       setBgColor(colors.dominant || DEFAULT_BG_COLOR);
+  //     } else {
+  //       setBgColor(colors.background || DEFAULT_BG_COLOR);
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
-    asyncColor();
+    ImageColors.getColors(pokemon.picture, {fallback: DEFAULT_BG_COLOR})
+      .then(colors => {
+        if (!isMounted.current) return;
+        if (colors.platform === 'android' || colors.platform === 'web') {
+          setBgColor(colors.dominant || DEFAULT_BG_COLOR);
+        } else {
+          setBgColor(colors.background || DEFAULT_BG_COLOR);
+        }
+      })
+      .catch(err => {
+        setBgColor(DEFAULT_BG_COLOR);
+      });
     return () => {
       isMounted.current = false;
-    }
+    };
   }, []);
 
   return (
