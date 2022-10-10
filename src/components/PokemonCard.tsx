@@ -23,20 +23,6 @@ export const PokemonCard = ({pokemon}: Props) => {
   const isMounted = useRef<boolean>(true);
   const navigation = useNavigation<HomeScreenNavigationProp>();
 
-  // const asyncColor = async () => {
-  //   const colors: any = await ImageColors.getColors(pokemon.picture, {
-  //     fallback: DEFAULT_BG_COLOR,
-  //   });
-
-  //   if (isMounted.current) {
-  //     if (colors.platform === 'android' || colors.platform === 'web') {
-  //       setBgColor(colors.dominant || DEFAULT_BG_COLOR);
-  //     } else {
-  //       setBgColor(colors.background || DEFAULT_BG_COLOR);
-  //     }
-  //   }
-  // };
-
   useEffect(() => {
     ImageColors.getColors(pokemon.picture, {fallback: DEFAULT_BG_COLOR})
       .then(colors => {
