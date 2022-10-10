@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 40,
     alignSelf: 'flex-start',
+    position: 'absolute',
     left: 20
   },
   pokeball: {

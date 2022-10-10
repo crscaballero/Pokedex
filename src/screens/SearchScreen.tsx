@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Platform, Image, View, Text, FlatList, Dimensions, StyleSheet } from 'react-native';
+import { Platform, Image, View, Text, FlatList, Dimensions, useWindowDimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // import { DismissKeyboard } from '../components/DismissKeyboard';
 import { ScrollView } from 'react-native-virtualized-view';
@@ -18,6 +18,20 @@ export const SearchScreen = () => {
   const [pokemonFiltered, setPokemonFiltered] = useState<SimplePokemon[]>([]);
   const { top } = useSafeAreaInsets();
   const { isFetching, simplePokemonList } = usePokemonSearch();
+  const [columns, setColumns] = useState<number>(2);
+  const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if (width > 576 && width <= 768) {
+      setColumns(2);
+    } else if (width > 768 && width <= 992) {
+      setColumns(3);
+    } else if (width > 992 && width <= 1200) {
+      setColumns(4);
+    } else if (width > 1200) {
+      setColumns(5);
+    }
+  }, [width]);
   
   useEffect(() => {
     if (term) {
@@ -83,7 +97,7 @@ export const SearchScreen = () => {
                   data={pokemonFiltered}
                   keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
                   showsVerticalScrollIndicator={false}
-                  numColumns={2}
+                  numColumns={columns}
 
                   // Header
                   ListHeaderComponent={(    

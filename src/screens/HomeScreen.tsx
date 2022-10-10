@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Image, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Image, Text, FlatList, ActivityIndicator, useWindowDimensions, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScrollView } from 'react-native-virtualized-view';
 
@@ -11,6 +11,20 @@ import { SimplePokemon } from '../interfaces/PokemonInterfaces';
 export const HomeScreen = () => {
   const { top } = useSafeAreaInsets();
   const { simplePokemonList, loadPokemons } = usePokemonPaginated();
+  const [columns, setColumns] = useState<number>(2);
+  const { width } = useWindowDimensions();
+
+  useEffect(() => {
+    if (width > 576 && width <= 768) {
+      setColumns(2);
+    } else if (width > 768 && width <= 992) {
+      setColumns(3);
+    } else if (width > 992 && width <= 1200) {
+      setColumns(4);
+    } else if (width > 1200) {
+      setColumns(5);
+    }
+  }, [width]);
 
   return (
     <>
@@ -29,7 +43,7 @@ export const HomeScreen = () => {
               data={simplePokemonList}
               keyExtractor={(pokemon: SimplePokemon) => pokemon.id}
               showsVerticalScrollIndicator={false}
-              numColumns={2}
+              numColumns={columns}
 
               // Header
               ListHeaderComponent={(    

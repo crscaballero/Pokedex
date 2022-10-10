@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Image, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Image, Text, TouchableOpacity, Dimensions, Platform, StyleSheet } from 'react-native';
 import ImageColors from 'react-native-image-colors';
 import { useNavigation } from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginHorizontal: 10,
     height: 120,
-    width: windowWidth * 0.4,
+    width: (Platform.OS === 'web') ? 200 : windowWidth * 0.4,
     marginBottom: 25,
     borderRadius: 10,
     
@@ -98,7 +98,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
     fontWeight: 'bold',
-    top: 20,
+    position: 'absolute',
+    top: 10,
     left: 10,
   },
   pokeballContainer: {
