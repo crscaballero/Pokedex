@@ -26,7 +26,7 @@ export const Tabs = () => (
       name="Navigator"
       component={Navigator}
       options={{
-        tabBarLabel: 'List',
+        tabBarLabel: (Platform.OS === 'web') ? '' : 'List',
         tabBarIcon: ({color}: any) => (<Icon color={color} size={25} name="list-outline" />)
       }}
     />
@@ -34,7 +34,7 @@ export const Tabs = () => (
       name="SearchScreen"
       component={TabsForDetails}
       options={{
-        tabBarLabel: 'Search',
+        tabBarLabel: (Platform.OS === 'web') ? '' : 'Search',
         tabBarIcon: ({color}: any) => (<Icon color={color} size={25} name="search-outline" />)
       }}
     />
